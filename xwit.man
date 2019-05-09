@@ -1,0 +1,248 @@
+.TH XWIT 1 "2 Dec 2005"
+.SH NAME
+xwit \- window interface tool: pop or iconify this xterm window or named windows
+.SH SYNOPSIS
+.B
+xwit
+'in \n(.iu+\w'\fBxwit \fR'u
+.RB [ \-display
+.IR display ]
+.RB [ \-sync ]
+.RB [ \-pop ]
+.RB [ \-focus ]
+.RB [ \-iconify ]
+.RB [ \-unmap ]
+.br
+.RB [ \-raise ]
+.RB [ \-lower ]
+.RB [ \-opposite ]
+.RB [ \- [ un ] circulate ]
+.br
+.RB [ \-resize
+.IR w\ h ]
+.RB [ \-rows
+.IR r ]
+.RB [ \-columns
+.IR c ]
+.RB [ \- [ r ] move
+.IR x\ y ]
+.br
+.RB [ \- [ r ] warp 
+.IR x\ y ]
+.RB [ \-colormap
+.IR colormapid ]
+.RB [ \- [ no ] save ]
+.br
+.RB [ \-name
+.IR name ]
+.RB [ \-iconname
+.IR name ]
+.br
+.RB [ \-bitmap
+.IR file ]
+.RB [ \-mask
+.IR file ]
+.RB [ \- [ r ] iconmove
+.IR x\ y ]
+.br
+.RB [ \- [ no ] backingstore ]
+.RB [ \- [ no ] saveunder ]
+.br
+.RB [ \- [ no ] keyrepeat
+.IR "keycode ... keycode \- keycode ..." ]
+.br
+.RB [ \-id
+.IR windowid ]
+.RB [ \-root ]
+.RB [ \-current ]
+.RB [ \-select ]
+.RB [ \-all ]
+.RB [ \-names
+.IR initialsubstring... ]
+.in
+.SH DESCRIPTION
+.B xwit
+is an X window interface tool.
+By default when used with no arguments in an xterm it
+de-iconifies and raises the window.
+You can specify a different function to do, such as iconifying the window,
+and apply it to several windows whose name begins with one of the given
+strings, or a particular window id given, or the window id found
+in the environment variable
+.B WINDOWID
+(which is set by xterm for the program it runs), or the window under the mouse cursor.
+.SH OPTIONS
+.TP
+\-display
+is followed by the display to open.
+.TP
+\-sync
+causes all X requests to be performed synchronously.
+.TP
+\-property property
+causes the specified property to be used instead of the windows
+name (which is WM_NAME).
+Some possible values are: WM_CLASS, WM_COMMAND, WM_ICON_NAME, WM_CLIENT_MACHINE.
+.TP
+\-pop
+is the default action.
+It need only be given if it is wanted as well as some other function.
+.TP
+\-focus
+will give the input focus to the specified window.
+.TP
+\-iconify
+will iconify the windows instead of popping them.
+.TP
+\-unmap
+will iconify windows by unmapping with a non ICCCM compliant window manager.
+(Beware, this option is not usually what you want).
+.TP
+\-raise
+raise windows (but do not map them if unmapped).
+.TP
+\-lower
+lower windows.
+.TP
+\-opposite
+toggle the stacking of windows from top to bottom among any overlapping
+windows.
+.TP
+\-circulate
+circulate a window's subwindows forward. Use this with \-root.
+.TP
+\-uncirculate
+circulate a window's subwindows backward. Use this with \-root.
+.TP
+\-resize w h
+resize windows to the given pixel size.
+.TP
+\-rows r
+resize windows to the given number of rows.
+.TP
+\-columns c
+resize windows to the given number of columns.
+.TP
+\-move x y
+move windows to the given absolute position relative to its parent.
+(If the x or y value is negative it is taken relative to the right or
+bottom edge of the parent.)
+.TP
+\-rmove x y
+move windows by the given relative amount.
+.TP
+\-warp x y
+move the cursor to the given position relative to the specified window.
+Add \-root to warp to an absolute position.
+.TP
+\-rwarp x y
+move the cursor by the given relative amount.
+.TP
+\-colormap colormapid
+install the given colormap into the given window.
+\-save \-nosave
+immediately enable or disable the screen saver.
+.TP
+\-name name
+set the WM_NAME property to the given string.
+.TP
+\-iconname name
+set the WM_ICON_NAME property to the given string.
+.TP
+\-bitmap file
+use the given bitmap file as the icon bitmap for the window.
+.TP
+\-mask file
+use the given bitmap file as the icon mask for the window.
+.TP
+\-iconmove x y
+move icons to the given absolute position.  (Will not work with some
+window managers.)
+.TP
+\-riconmove x y
+move icons by the given relative amount.  (Will not work with some
+window managers.)
+.TP
+\-backingstore \-bs \-nobackingstore \-nobs
+enable or disable backing store for the window.
+.TP
+\-saveunder \-su \-nosaveunder \-nosu
+enable or disable saveunders for the window.
+.TP
+\-keyrepeat \-nokeyrepeat
+is followed by a list of keycodes (decimal numbers, see xmodmap(1)).
+A range can be specified as a lower number, ``\-'', and upper number
+as three separate arguments.
+The individual setting of auto-repeat for those keycodes is set on or off.
+The global setting of auto-repeat can be set with xset(1).
+When off, no keys will repeat.
+.TP
+\-print
+will print the id, the coordinates, the depth and the name of all
+selected windows.
+If \-property is given, that one will be printed instead of the name.
+.TP
+Window Selection
+.br
+If no window is specified, $WINDOWID will be used if set;
+otherwise the window under the cursor will be selected.
+.TP
+\-id
+is followed by a single window number, in decimal; or, if it begins with
+0x, in hexadecimal.
+.TP
+\-root
+selects the root window.
+.TP
+\-current
+selects the window under the cursor (default if no window specified and
+$WINDOWID not set).
+.TP
+\-select
+allows the user to interactively select a window with the mouse.
+.TP
+\-all
+is equivalent to \-names '', as easier to remember.
+.TP
+\-names
+if given must be the last option and is followed by a list of strings.
+All windows that have a name that begins exactly like one of the strings
+will be acted upon.
+If \-property is given, this property is used instead of the name.
+By using a null string (\-names ''), all names will be matched.
+.SH EXAMPLES
+.\" DD 10/97: seems to crash olvwm, sigh
+.\" To iconify all windows (probably not quite what you want to do)
+.\" 
+.ta 1i
+.\"	xwit \-names ''
+To de-iconify and pop ``this'' xterm and warp the cursor into it:
+
+	xwit \-pop \-warp 50 50
+
+To interactively select an xterm, and resize it to 34 rows and 80 columns:
+
+	xwit \-select \-rows 34 \-columns 80
+
+To gently agitate your oclock on the screen:
+
+ 	while   xwit \-rmove 0 10 \-names oclock
+ 	do      xwit \-rmove 0 \-10 \-names oclock
+ 	done
+.SH DIAGNOSTICS
+Exit status is 0 if any action is taken, 1 if no window matches the list
+supplied to \-names, 2 if an error occurs.
+.SH LIMITATIONS
+Since each application is supposed to request these functions of the
+window manager, some of them may not like other clients mapping and unmapping
+them behind their backs.
+Iconification is requested of the window manager using the ICCCM.
+Non ICCCM compliant window managers may not react correctly.
+.SH AUTHORS
+Mark M Martin, CETIA France, mmm@cetia.fr
+.br
+David DiGiacomo, david@slack.com
+.SH ACKNOWLEDGEMENTS
+Thanks to Andre Delafontaine, Norman R. McBride, Keith Thompson,
+Glen R. Walker, Michael Mauch, Dima Barsky and Decklin Foster
+for bug reports, suggestions and/or patches.

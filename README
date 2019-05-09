@@ -1,0 +1,32 @@
+Adapted for Linux in 2019 by David B. Lamkins, applying Debian patches
+a/o 20190509 for release 3.4-16.
+
+$Id: README,v 3.4 97/10/20 18:40:31 dd Exp $
+
+xwit version 3.4
+
+Mark M Martin mmm@cetia.fr
+David DiGiacomo david@slack.com
+October 1997
+
+xwit ("x window interface tool") is a hodge-podge collection of simple
+routines to call some of those X11 functions that don't already have any
+utility commands built around them.  The reasoning behind this is that
+loosely every X function should be accessible from a shell script.
+
+For example, XWarpPointer() will move the X pointer, but no utility program
+exists to do so on those rare occasions when you could really use it.  xwit
+will also resize, iconify, pop, and move windows given by name or id,
+change an icon, title or name, set the screen saver going, and change
+individual key autorepeat settings, etc.
+
+The program is released into the public domain.  The considerate
+will leave credit for the authors.
+
+
+Changes since version 3.2:
+
+1. returns exit status of 1 if no windows match list, 2 for errors
+   (suggestion of Norman McBride)
+
+2. -current option (suggestion of Andre Delafontaine)
